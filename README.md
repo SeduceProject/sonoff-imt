@@ -1,3 +1,28 @@
+## REST API
+* [GET] /devices: List the connected devices without updating the device information
+```
+{
+    "id": "1000aa1ae1",
+    "ip": "10.3.141.201",
+    "port": "8081",
+    "power": "on",
+    "startup": "stay",
+    "desc": "3 PESX"
+}
+```
+* [GET] /fulldevices: Update the device information and list the connected devices
+* [GET] /on/device-id: Switch on the plug
+* [GET] /off/device-id: Switch off the plug
+* [GET] /startup/device-id/startup-value: Update the startup field (state of the plug when power supply is recovered). Valid values : 'on', 'off', 'stay'.
+* [POST] /desc/device-id: Update the 'desc' field. The request body must contains the new description :
+```
+ { "desc": "3 PESX" }
+```
+* [POST] /wifi/device-id/wifi-ssid: Configure the Wifi connection. The request body must contains the new wifi password :
+```
+ { "pwd": "12345678" }
+```
+
 ## Server Installation on Raspberry
 * python3 and pip3
 ```
@@ -25,5 +50,5 @@ apt install python3-pyside2.qt3dcore python3-pyside2.qt3dinput python3-pyside2.q
 * Restart the sonoff-imt server
 
 ## POST requests description
-* [Doc 1.4](SONOFF_DIY_MODE_Protocol_Doc_v1.4.md)
-* [Doc 2.0](SONOFF_DIY_MODE_Protocol_Doc_v2.0_Doc.pdf)
+* [Doc 1.4](doc/SONOFF_DIY_MODE_Protocol_Doc_v1.4.md)
+* [Doc 2.0](doc/SONOFF_DIY_MODE_Protocol_Doc_v2.0_Doc.pdf)

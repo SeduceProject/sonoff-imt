@@ -33,6 +33,21 @@ def on_device(device_id):
         return { 'result': 'error: id %s is unknown' % device_id }
 
 
+@app.route('/off/<device_id>', methods=['GET'])
+def off_device(device_id):
+    if device_id in device_info:
+        info = device_info[device_id]
+        body_post = { 
+                "deviceid": device_id,
+                "data": { "switch": "off" }
+                }
+        url_post = 'http://%s:%s/zeroconf/switch' % (info['ip'], info['port'])
+        requests.post(url_post, json.dumps(body_post))
+        return { 'result': 'ok' }
+    else:
+        return { 'result': 'error: id %s is unknown' % device_id }
+
+
 @app.route('/startup/<device_id>/<startup>', methods=['GET'])
 def update_startup(device_id, startup):
     # State of switch when power supply is recovered
@@ -45,8 +60,7 @@ def update_startup(device_id, startup):
                     "data": { "startup": startup }
                     }
             url_post = 'http://%s:%s/zeroconf/startup' % (info['ip'], info['port'])
-            ret = requests.post(url_post, json.dumps(body_post))
-            print(ret.text)
+            requests.post(url_post, json.dumps(body_post))
             return { 'result': 'ok' }
         else:
             return { 'result': 'error: startup value %s is unknown' % status }
@@ -54,8 +68,27 @@ def update_startup(device_id, startup):
         return { 'result': 'error: id %s is unknown' % device_id }
 
 
+@app.route('/wifi/<device_id>/<ssid>', methods=['POST'])
+def wifi(device_id, ssid):
+    # State of switch when power supply is recovered
+    if device_id in device_info:
+        info = device_info[device_id]
+        if 'pwd' in request.json:
+            body_post = { 
+                    "deviceid": device_id,
+                    "data": { "ssid": ssid, "password":  request.json['pwd']}
+                    }
+            url_post = 'http://%s:%s/zeroconf/wifi' % (info['ip'], info['port'])
+            requests.post(url_post, json.dumps(body_post))
+            return { 'result': 'ok' }
+        else:
+            return { 'result': 'error: wrong data for device %s' % device_id }
+    else:
+        return { 'result': 'error: id %s is unknown' % device_id }
+
+
 @app.route('/desc/<device_id>', methods=['POST'])
-def off_device(device_id):
+def desc_device(device_id):
     if device_id in device_info:
         if 'desc' in request.json:
             device_info[device_id]['desc'] = request.json['desc']
