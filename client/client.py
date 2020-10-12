@@ -12,7 +12,6 @@ parser.add_argument("operation", help="""    devices: print information about co
     off: switch off the device (--id is required)
         """)
 parser.add_argument("--id", help="select the device from its id")
-parser.add_argument("-l", "--long", help="print the whole information about devices", action='store_true')
 args = parser.parse_args()
 
 if args.operation == "devices" or args.operation == "fulldevices":
