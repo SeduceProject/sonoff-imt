@@ -56,3 +56,9 @@ apt install python3-pyside2.qt3dcore python3-pyside2.qt3dinput python3-pyside2.q
 ## POST requests description
 * [Doc 1.4](doc/SONOFF_DIY_MODE_Protocol_Doc_v1.4.md)
 * [Doc 2.0](doc/SONOFF_DIY_MODE_Protocol_Doc_v2.0_Doc.pdf)
+* Configure the Wifi server with wget: 
+```
+wget -O- --post-data='{"version":4,"ssid":"mywifi","password":"mypwd","serverName":"10.0.1.1","port":1080}' \
+     --header=Content-Type:application/json "http://10.10.7.1/ap"
+```
+
