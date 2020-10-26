@@ -93,9 +93,9 @@ def desc_device(device_id):
         if 'desc' in request.json:
             device_info[device_id]['desc'] = request.json['desc']
             desc = {}
-            for d in device_info.values():
-                if 'desc' in d:
-                    desc[device_id] = d['desc']
+            for d in device_info:
+                if 'desc' in device_info[d]:
+                    desc[d] = device_info[d]['desc']
             if len(desc) > 0:
                 with open('desc.json', 'w') as outfile:
                     json.dump(desc, outfile)
@@ -112,6 +112,7 @@ def update_device_info():
             data = json.load(json_file)
             for d in data:
                 device_info[d]['desc'] = data[d]
+    print(json.dumps(device_info, indent=4))
 
 
 if __name__ == "__main__":
