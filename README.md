@@ -1,3 +1,4 @@
+# Light REST server for SONOFF devices in DIY mode
 ## Client Installation
 * Examples:
   * List connected devices: `python3 client.py devices`
