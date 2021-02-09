@@ -54,6 +54,21 @@ apt install python3-pyside2.qt3dcore python3-pyside2.qt3dinput python3-pyside2.q
 * Plug in and out the Sonoff device
 * Restart the sonoff-imt server
 
+## Using the REST API of SONOFF devices without using the sonoff-imt server
+* When the device is connected to the *sonoffDiy* wifi, it blinks two times quickly, stop blinking and repeat indefinitely this sequence.
+* Send **POST** requests with the header "Content-Type: application/json"
+  * Get information about the device: `http://10.3.141.139:8081/zeroconf/info` with the body:
+  ```
+  { "deviceid": "", "data": {  } }
+  ```
+  * Switch on the device: `http://10.3.141.139:8081/zeroconf/switch` with the body:
+  ```
+  { "deviceid": "", "data": { "switch": "on" } }
+  ```
+  * Configure the wifi connection: `` with the body:
+  ```
+  { "deviceid": "", "data": { "ssid": "myWIFI", "password": "GreatWIFI" } }
+  ```
 ## POST requests description
 * [Doc 1.4](doc/SONOFF_DIY_MODE_Protocol_Doc_v1.4.md)
 * [Doc 2.0](doc/SONOFF_DIY_MODE_Protocol_Doc_v2.0_Doc.pdf)
