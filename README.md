@@ -50,7 +50,7 @@ apt install python3-pyside2.qt3dcore python3-pyside2.qt3dinput python3-pyside2.q
 * Start the Sonoff
 * Retrieve the Sonoff IP address and the MAC address in the dnsmasq log at /var/log/syslog
 * Configure the Wifi SSID and password of the Sonoff from POST request
-* Add a rule to assign a Static IP to the Sonoff device in the Wifi server
+* (Optional) Add a rule to assign a Static IP to the Sonoff device in the Wifi server
 * Plug in and out the Sonoff device
 * Restart the sonoff-imt server
 
