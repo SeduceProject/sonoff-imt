@@ -111,8 +111,11 @@ def update_device_info():
         with open('desc.json') as json_file:
             data = json.load(json_file)
             for d in data:
-                device_info[d]['desc'] = data[d]
-    print(json.dumps(device_info, indent=4))
+                if d in device_info:
+                    device_info[d]['desc'] = data[d]
+                else:
+                    print("[ERROR] The device '%s' is not detected. Please check the WIFI configuration" % d)
+    #print(json.dumps(device_info, indent=4))
 
 
 if __name__ == "__main__":

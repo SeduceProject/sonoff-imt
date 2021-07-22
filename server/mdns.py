@@ -133,7 +133,7 @@ def get_device_info():
     listener = MyListener()
     browser = ServiceBrowser(zeroconf, "_ewelink._tcp.local.",listener= listener)
     # Wait the initialization
-    time.sleep(2)
+    time.sleep(5)
     # Detect connected devices
     if listener.all_sub_num>0:
         info_dict=listener.all_info_dict.copy()

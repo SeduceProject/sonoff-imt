@@ -78,3 +78,29 @@ wget -O- --post-data='{"version":4,"ssid":"mywifi","password":"mypwd","serverNam
      --header=Content-Type:application/json "http://10.10.7.1/ap"
 ```
 
+## WIFI configuration on lost devices
+* Create the WIFI hotspot `sonoffDiy / 20170618sn`
+* Open the SONOFF box
+* Remove the jumper
+* Plug the SONOFF in
+* Press the black button until the LED blinks differently
+* Unplug the SONOFF
+* Put the jumper
+* Plug the SONOFF in
+* Check the SONOFF is connected to the WIFI hotspot (LED blinks two times fast, break, two times fast...)
+* Read the SONOFF IP in `/var/log/syslog` (here, 10.3.141.139)
+* Test the SONOFF connection by turning the SONOFF on
+  * Send a POST request to `http://10.3.141.139:8081/zeroconf/switch` with
+    the header "Content-type: application/json" and the body:
+```
+{ "deviceid": "", "data": { "switch": "on" } }
+```
+* Configure the connection the room WIFI
+  * Send a POST request to `http://10.3.141.139:8081/zeroconf/wifi` with
+    the header "Content-type: application/json" and the body:
+```
+{ "deviceid": "", "data": { "ssid": "roomWIFI", "password": "roomPASSWORD" } }
+```
+* Activate the WIFI hotspot `roomWIFI / roomPASSWORD`
+* Unplug the SONOFF 
+* Plug the SONOFF in
